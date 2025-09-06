@@ -1,0 +1,94 @@
+{
+  "name": "musicapp",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "musicapp/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/musicapp",
+        "index": "musicapp/src/index.html",
+        "baseHref": "/",
+        "main": "musicapp/src/main.ts",
+        "tsConfig": "musicapp/tsconfig.app.json",
+        "assets": ["musicapp/src/favicon.ico", "musicapp/src/assets"],
+        "styles": ["musicapp/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "musicapp/webpack.config.ts",
+        "postcssConfig": "musicapp/postcss.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "musicapp/src/environments/environment.ts",
+              "with": "musicapp/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "musicapp/webpack.config.prod.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "musicapp:build",
+        "hmr": true,
+        "liveReload": true,
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "musicapp:build:development"
+        },
+        "production": {
+          "buildTarget": "musicapp:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "executor": "@nx/react:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "musicapp:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "musicapp:serve:development"
+        },
+        "production": {
+          "serveTarget": "musicapp:serve:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "musicapp/jest.config.ts"
+      }
+    }
+  }
+}
