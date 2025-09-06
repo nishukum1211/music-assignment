@@ -24,7 +24,7 @@ import type { Role, Song } from './types';
 import { seedSongs } from './data';
 import { groupBy, sortBy } from './utils';
 
-type Props = { role: Role; token: string };
+type Props = { role: Role; token?: string };
 
 export default function MusicContainer({ role }: Props) {
   const [songs, setSongs] = useState<Song[]>(seedSongs);
