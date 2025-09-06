@@ -25,7 +25,12 @@ const prodConfig: ModuleFederationConfig = {
    * ]
    */
   remotes: [
-    ['musicapp', 'https://musicapp-assignment-mn22.vercel.app/remoteEntry.js'],
+    [
+      'musicapp',
+      `musicApp@${
+        process.env.MUSIC_APP_URL || 'http://localhost:4201'
+      }/remoteEntry.js`,
+    ],
   ],
 };
 
