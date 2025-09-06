@@ -204,14 +204,6 @@ const Shell = () => {
           <MusicApp role={role} token={token} />
         </Suspense>
       </main>
-
-      <footer className="absolute mt-12 border-t border-white/10 bg-black/40 backdrop-blur-xl w-full bottom-0 ">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-6">
-          <p className="text-center text-xs text-gray-500">
-            © 2025 Music Library • Made with Love by Nishu
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };
