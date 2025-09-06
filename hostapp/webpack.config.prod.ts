@@ -24,7 +24,9 @@ const prodConfig: ModuleFederationConfig = {
    *   ['app2', 'http://example.com/path/to/app2/remoteEntry.js'],
    * ]
    */
-  remotes: [['musicapp', 'http://localhost:4201/remoteEntry.js']],
+  remotes: [
+    ['musicapp', 'https://musicapp-assignment-mn22.vercel.app/remoteEntry.js'],
+  ],
 };
 
 // Nx plugins for webpack to build config object from Nx options and context.
