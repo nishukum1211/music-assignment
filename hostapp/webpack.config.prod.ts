@@ -27,7 +27,7 @@ const prodConfig: ModuleFederationConfig = {
   remotes: [
     [
       'musicapp',
-      `musicApp@${
+      `musicapp@${
         process.env.MUSIC_APP_URL || 'http://localhost:4201'
       }/remoteEntry.js`,
     ],
