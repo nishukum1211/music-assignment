@@ -1,4 +1,3 @@
-// MainApp.tsx
 import { Suspense, lazy, useState } from 'react';
 import { AuthProvider, useAuth } from './auth';
 import {
