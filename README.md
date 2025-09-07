@@ -1,97 +1,109 @@
-# MusicAssignment
+````
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+# 🎶 Nx Microfrontend Music App  
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+A **microfronREADME.md`** with **all deliverables covered** (run locally, deployment, credentials, explanation of microfrontended authentication** (Admin/User), **dynamic remote loading**, and **music library management** with filtering, sorting, and grouping.  
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Run tasks
+### 1. GitHub Repository with README  
 
-To run tasks with Nx use:
+#### 📌 How to Run Locally  
 
-```sh
-npx nx <target> <project-name>
+```bash
+# Clone the repository
+git clone https://github.com/your-username/nx-microfrontend-music-app.git
+cd nx-microfrontend-music-app
+
+# Install dependencies
+npm install
+
+# Run host app
+nx serve hostapp
+
+# Run remote app
+nx serve remoteapp
+````
+
+* Open your browser at the **host app** URL.
+* The host will dynamically load the **remote music app**.
+
+---
+
+#### 📌 How Deployed
+
+* Both **Host App** and **Remote App** are deployed separately (e.g., **Netlify, Vercel, or GitHub Pages**).
+* The **remoteapp** exposes its `remoteEntry.js` file.
+* The **hostapp** consumes that file dynamically at runtime.
+
+Example configuration in `hostapp` (Webpack Module Federation):
+
+```js
+remotes: {
+  music: "music@https://remoteapp-demo.vercel.app/remoteEntry.js",
+}
 ```
 
-For example:
+* This ensures the **hostapp** always loads the deployed **remoteapp**.
 
-```sh
-npx nx build myproject
-```
+---
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+#### 📌 Credentials for Demo
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+* **Admin**
 
-## Add new projects
+  * Role: `admin`
+  * Permissions: View, Add, Delete songs
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+* **User**
 
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
-```
+  * Role: `user`
+  * Permissions: View only
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+---
 
-```sh
-# Genenerate an app
-npx nx g @nx/react:app demo
+#### 📌 Explanation of Micro Frontend & Role-Based Auth
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
-```
+**Micro Frontend Setup**
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+* `hostapp` → Acts as the main container application.
+* `remoteapp` → Music Library (songs listing + add/delete features).
+* Integrated via **Webpack Module Federation** with **lazy loading**.
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Authentication & Role Management Flow**
 
-## Set up CI!
+1. On login, select either **User** or **Admin**.
+2. A **mock JWT** is generated and stored in `localStorage`.
+3. An **Auth Higher Order Component (HOC)** reads the token and extracts role.
+4. The role determines which UI actions are enabled:
 
-### Step 1
+   * **User** → Can view and filter songs.
+   * **Admin** → Can view, add, and delete songs.
 
-To connect to Nx Cloud, run the following command:
+**Music Library Features**
 
-```sh
-npx nx connect
-```
+* Modern UI for managing songs.
+* Filter, sort, and group by **Album, Artist, Title**.
+* Implemented using JavaScript’s `map`, `filter`, and `reduce`.
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+---
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 2. 🌍 Live Demo Links
 
-### Step 2
+* **Main App (Host App)** → https://music-assignment-host.vercel.app/
+* **Music Library (Remote App)** → https://music-assignment-remote.vercel.app/
 
-Use the following command to configure a CI workflow for your workspace:
+---
 
-```sh
-npx nx g ci-workflow
-```
+## 🖥️ Tech Stack
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+* **Framework**: React (Functional Components + Hooks)
+* **Architecture**: Nx + Webpack Module Federation
+* **Styling**: TailwindCSS / CSS
+* **Auth**: Mock JWT stored in `localStorage`
+* **State Management** Context API
+* **Deployment**: Vercel 
 
-## Install Nx Console
+---
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-# music-assignment
+---
