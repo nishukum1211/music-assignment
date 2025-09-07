@@ -390,12 +390,12 @@ export default function MusicContainer({ role }: Props) {
         ))}
       </div>
 
-      {filtered.length === 0 && (
+      {/* {filtered.length === 0 && (
         <div className="bg-black/40 backdrop-blur-xl rounded-2xl border border-white/10 p-12 text-center">
           <Music className="w-12 h-12 text-gray-600 mx-auto mb-4" />
           <p className="text-gray-400">No songs found matching your search.</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
