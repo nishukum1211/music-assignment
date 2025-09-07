@@ -14,9 +14,6 @@ import {
   Pause,
   ChevronDown,
   X,
-  Check,
-  TrendingUp,
-  BarChart3,
   Sparkles,
 } from 'lucide-react';
 import './styles.css';
