@@ -4,7 +4,7 @@ import './styles.css';
 
 export function App() {
   return (
-    <div className="bg-black">
+    <div className="bg-black h-[100vh]">
       <MusicContainer role="user" />
     </div>
   );
