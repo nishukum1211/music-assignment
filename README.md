@@ -32,7 +32,7 @@ nx serve remoteapp
 
 #### 📌 How Deployed
 
-* Both **Host App** and **Remote App** are deployed separately (e.g., **Netlify, Vercel, or GitHub Pages**).
+* Both **Host App** and **Remote App** are deployed separately (e.g., **Vercel**).
 * The **remoteapp** exposes its `remoteEntry.js` file.
 * The **hostapp** consumes that file dynamically at runtime.
 
@@ -95,15 +95,6 @@ remotes: {
 
 ---
 
-## 🖥️ Tech Stack
 
-* **Framework**: React (Functional Components + Hooks)
-* **Architecture**: Nx + Webpack Module Federation
-* **Styling**: TailwindCSS / CSS
-* **Auth**: Mock JWT stored in `localStorage`
-* **State Management** Context API
-* **Deployment**: Vercel 
-
----
 
 ---
